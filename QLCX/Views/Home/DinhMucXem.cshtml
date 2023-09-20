@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QLCX.Models.DinhMuc>
+
+@{
+    ViewBag.Title = "DinhMucXem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2 style="text-align:center">Định Mức</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Tuổi của cây
+        </th>
+        <th>
+            Tiền chăm sóc
+        </th>
+        <th>
+            Tên loại cây
+        </th>
+        <th>
+            @Html.ActionLink("Thêm", "DinhMucThem")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TuoiCuaCay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TienChamSoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiCay1.TenLoaiCay)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "DinhMucSua", new { id1 = item.TuoiCuaCay, id2 = item.LoaiCay }) |
+                @Html.ActionLink("Chi tiết", "DinhMucChiTiet", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Xóa", "DinhMucXoa", new { id = item.LoaiCay, age = item.TuoiCuaCay })
+            </td>
+        </tr>
+    }
+
+</table>

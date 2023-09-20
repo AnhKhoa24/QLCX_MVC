@@ -1,0 +1,40 @@
+﻿@model QLCX.Models.DinhMuc
+
+@{
+    ViewBag.Title = "DinhMucXoa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<h3 style="text-align:center">Bạn có chắc muốn xóa nó?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TienChamSoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TienChamSoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoaiCay1.TenLoaiCay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiCay1.TenLoaiCay)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" value="@Html.DisplayFor(model => model.TuoiCuaCay)" name="TuoiCuaCay" />
+        <input type="hidden" value="@Html.DisplayFor(model => model.LoaiCay)" name="LoaiCay" />
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

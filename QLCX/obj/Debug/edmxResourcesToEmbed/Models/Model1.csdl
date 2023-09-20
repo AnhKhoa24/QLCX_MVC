@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyCayXanhModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cay">
+    <Key>
+      <PropertyRef Name="STTCay" />
+      <PropertyRef Name="MaDuong" />
+    </Key>
+    <Property Name="STTCay" Type="Int32" Nullable="false" />
+    <Property Name="MaDuong" Type="Int32" Nullable="false" />
+    <Property Name="NgayTrong" Type="DateTime" Precision="0" />
+    <Property Name="TuoiCayLucTrong" Type="Int32" />
+    <Property Name="NgayChatBo" Type="DateTime" Precision="0" />
+    <Property Name="LoaiCay" Type="Int32" />
+    <NavigationProperty Name="ConDuong" Relationship="Self.FK_Cay_ConDuong" FromRole="Cay" ToRole="ConDuong" />
+    <NavigationProperty Name="LoaiCay1" Relationship="Self.FK_Cay_LoaiCay" FromRole="Cay" ToRole="LoaiCay" />
+  </EntityType>
+  <EntityType Name="ConDuong">
+    <Key>
+      <PropertyRef Name="MaDuong" />
+    </Key>
+    <Property Name="MaDuong" Type="Int32" Nullable="false" />
+    <Property Name="TenDuong" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="ChieuDai" Type="Int32" />
+    <NavigationProperty Name="Cays" Relationship="Self.FK_Cay_ConDuong" FromRole="ConDuong" ToRole="Cay" />
+    <NavigationProperty Name="ConDuongQuans" Relationship="Self.FK_ConDuongQuan_ConDuong" FromRole="ConDuong" ToRole="ConDuongQuan" />
+  </EntityType>
+  <EntityType Name="ConDuongQuan">
+    <Key>
+      <PropertyRef Name="MaDuong" />
+      <PropertyRef Name="TenQuan" />
+    </Key>
+    <Property Name="MaDuong" Type="Int32" Nullable="false" />
+    <Property Name="TenQuan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ConDuong" Relationship="Self.FK_ConDuongQuan_ConDuong" FromRole="ConDuongQuan" ToRole="ConDuong" />
+  </EntityType>
+  <EntityType Name="DinhMuc">
+    <Key>
+      <PropertyRef Name="TuoiCuaCay" />
+      <PropertyRef Name="LoaiCay" />
+    </Key>
+    <Property Name="TuoiCuaCay" Type="Int32" Nullable="false" />
+    <Property Name="LoaiCay" Type="Int32" Nullable="false" />
+    <Property Name="TienChamSoc" Type="Int32" />
+    <NavigationProperty Name="LoaiCay1" Relationship="Self.FK_DinhMuc_LoaiCay" FromRole="DinhMuc" ToRole="LoaiCay" />
+  </EntityType>
+  <EntityType Name="ID">
+    <Key>
+      <PropertyRef Name="id1" />
+    </Key>
+    <Property Name="id1" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoaiCay">
+    <Key>
+      <PropertyRef Name="MaLoaiCay" />
+    </Key>
+    <Property Name="MaLoaiCay" Type="Int32" Nullable="false" />
+    <Property Name="TenLoaiCay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="XuatXu" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="HinhAnh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cays" Relationship="Self.FK_Cay_LoaiCay" FromRole="LoaiCay" ToRole="Cay" />
+    <NavigationProperty Name="DinhMucs" Relationship="Self.FK_DinhMuc_LoaiCay" FromRole="LoaiCay" ToRole="DinhMuc" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Cay_ConDuong">
+    <End Role="ConDuong" Type="Self.ConDuong" Multiplicity="1" />
+    <End Role="Cay" Type="Self.Cay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConDuong">
+        <PropertyRef Name="MaDuong" />
+      </Principal>
+      <Dependent Role="Cay">
+        <PropertyRef Name="MaDuong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cay_LoaiCay">
+    <End Role="LoaiCay" Type="Self.LoaiCay" Multiplicity="0..1" />
+    <End Role="Cay" Type="Self.Cay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiCay">
+        <PropertyRef Name="MaLoaiCay" />
+      </Principal>
+      <Dependent Role="Cay">
+        <PropertyRef Name="LoaiCay" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConDuongQuan_ConDuong">
+    <End Role="ConDuong" Type="Self.ConDuong" Multiplicity="1" />
+    <End Role="ConDuongQuan" Type="Self.ConDuongQuan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConDuong">
+        <PropertyRef Name="MaDuong" />
+      </Principal>
+      <Dependent Role="ConDuongQuan">
+        <PropertyRef Name="MaDuong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DinhMuc_LoaiCay">
+    <End Role="LoaiCay" Type="Self.LoaiCay" Multiplicity="1" />
+    <End Role="DinhMuc" Type="Self.DinhMuc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiCay">
+        <PropertyRef Name="MaLoaiCay" />
+      </Principal>
+      <Dependent Role="DinhMuc">
+        <PropertyRef Name="LoaiCay" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyCayXanhEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cays" EntityType="Self.Cay" />
+    <EntitySet Name="ConDuongs" EntityType="Self.ConDuong" />
+    <EntitySet Name="ConDuongQuans" EntityType="Self.ConDuongQuan" />
+    <EntitySet Name="DinhMucs" EntityType="Self.DinhMuc" />
+    <EntitySet Name="IDs" EntityType="Self.ID" />
+    <EntitySet Name="LoaiCays" EntityType="Self.LoaiCay" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Cay_ConDuong" Association="Self.FK_Cay_ConDuong">
+      <End Role="ConDuong" EntitySet="ConDuongs" />
+      <End Role="Cay" EntitySet="Cays" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cay_LoaiCay" Association="Self.FK_Cay_LoaiCay">
+      <End Role="LoaiCay" EntitySet="LoaiCays" />
+      <End Role="Cay" EntitySet="Cays" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConDuongQuan_ConDuong" Association="Self.FK_ConDuongQuan_ConDuong">
+      <End Role="ConDuong" EntitySet="ConDuongs" />
+      <End Role="ConDuongQuan" EntitySet="ConDuongQuans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DinhMuc_LoaiCay" Association="Self.FK_DinhMuc_LoaiCay">
+      <End Role="LoaiCay" EntitySet="LoaiCays" />
+      <End Role="DinhMuc" EntitySet="DinhMucs" />
+    </AssociationSet>
+    <EntitySet Name="BaiViets" EntityType="QuanLyCayXanhModel.BaiViet" />
+    <EntitySet Name="LoaiBaiViets" EntityType="QuanLyCayXanhModel.LoaiBaiViet" />
+    <AssociationSet Name="FK_BaiViet_LoaiBaiViet" Association="QuanLyCayXanhModel.FK_BaiViet_LoaiBaiViet">
+      <End Role="LoaiBaiViet" EntitySet="LoaiBaiViets" />
+      <End Role="BaiViet" EntitySet="BaiViets" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(QuanLyCayXanhModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(QuanLyCayXanhModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="BaiViet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenBaiViet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MoTa" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="NgayViet" Type="DateTime" Precision="0" />
+    <Property Name="NguoiViet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="HinhAnh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HienThi" Type="Boolean" />
+    <Property Name="ThuTu" Type="Int32" />
+    <Property Name="IdLoaiBaiViet" Type="Int32" />
+    <NavigationProperty Name="LoaiBaiViet" Relationship="QuanLyCayXanhModel.FK_BaiViet_LoaiBaiViet" FromRole="BaiViet" ToRole="LoaiBaiViet" />
+  </EntityType>
+  <EntityType Name="LoaiBaiViet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BaiViets" Relationship="QuanLyCayXanhModel.FK_BaiViet_LoaiBaiViet" FromRole="LoaiBaiViet" ToRole="BaiViet" />
+  </EntityType>
+  <Association Name="FK_BaiViet_LoaiBaiViet">
+    <End Type="QuanLyCayXanhModel.LoaiBaiViet" Role="LoaiBaiViet" Multiplicity="0..1" />
+    <End Type="QuanLyCayXanhModel.BaiViet" Role="BaiViet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiBaiViet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BaiViet">
+        <PropertyRef Name="IdLoaiBaiViet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

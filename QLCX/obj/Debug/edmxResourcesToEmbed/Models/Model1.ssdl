@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyCayXanhModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BaiViet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenBaiViet" Type="nvarchar" MaxLength="50" />
+    <Property Name="MoTa" Type="nvarchar" MaxLength="200" />
+    <Property Name="NgayViet" Type="date" />
+    <Property Name="NguoiViet" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoiDung" Type="text" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="500" />
+    <Property Name="HienThi" Type="bit" />
+    <Property Name="ThuTu" Type="int" />
+    <Property Name="IdLoaiBaiViet" Type="int" />
+  </EntityType>
+  <EntityType Name="Cay">
+    <Key>
+      <PropertyRef Name="STTCay" />
+      <PropertyRef Name="MaDuong" />
+    </Key>
+    <Property Name="STTCay" Type="int" Nullable="false" />
+    <Property Name="MaDuong" Type="int" Nullable="false" />
+    <Property Name="NgayTrong" Type="date" />
+    <Property Name="TuoiCayLucTrong" Type="int" />
+    <Property Name="NgayChatBo" Type="date" />
+    <Property Name="LoaiCay" Type="int" />
+  </EntityType>
+  <EntityType Name="ConDuong">
+    <Key>
+      <PropertyRef Name="MaDuong" />
+    </Key>
+    <Property Name="MaDuong" Type="int" Nullable="false" />
+    <Property Name="TenDuong" Type="nchar" MaxLength="30" />
+    <Property Name="ChieuDai" Type="int" />
+  </EntityType>
+  <EntityType Name="ConDuongQuan">
+    <Key>
+      <PropertyRef Name="MaDuong" />
+      <PropertyRef Name="TenQuan" />
+    </Key>
+    <Property Name="MaDuong" Type="int" Nullable="false" />
+    <Property Name="TenQuan" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DinhMuc">
+    <Key>
+      <PropertyRef Name="TuoiCuaCay" />
+      <PropertyRef Name="LoaiCay" />
+    </Key>
+    <Property Name="TuoiCuaCay" Type="int" Nullable="false" />
+    <Property Name="LoaiCay" Type="int" Nullable="false" />
+    <Property Name="TienChamSoc" Type="int" />
+  </EntityType>
+  <EntityType Name="ID">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoaiBaiViet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenLoai" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LoaiCay">
+    <Key>
+      <PropertyRef Name="MaLoaiCay" />
+    </Key>
+    <Property Name="MaLoaiCay" Type="int" Nullable="false" />
+    <Property Name="TenLoaiCay" Type="nvarchar" MaxLength="50" />
+    <Property Name="XuatXu" Type="nchar" MaxLength="10" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_BaiViet_LoaiBaiViet">
+    <End Role="LoaiBaiViet" Type="Self.LoaiBaiViet" Multiplicity="0..1" />
+    <End Role="BaiViet" Type="Self.BaiViet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiBaiViet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BaiViet">
+        <PropertyRef Name="IdLoaiBaiViet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cay_ConDuong1">
+    <End Role="ConDuong" Type="Self.ConDuong" Multiplicity="1" />
+    <End Role="Cay" Type="Self.Cay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConDuong">
+        <PropertyRef Name="MaDuong" />
+      </Principal>
+      <Dependent Role="Cay">
+        <PropertyRef Name="MaDuong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cay_LoaiCay">
+    <End Role="LoaiCay" Type="Self.LoaiCay" Multiplicity="0..1" />
+    <End Role="Cay" Type="Self.Cay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiCay">
+        <PropertyRef Name="MaLoaiCay" />
+      </Principal>
+      <Dependent Role="Cay">
+        <PropertyRef Name="LoaiCay" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConDuongQuan_ConDuong">
+    <End Role="ConDuong" Type="Self.ConDuong" Multiplicity="1" />
+    <End Role="ConDuongQuan" Type="Self.ConDuongQuan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConDuong">
+        <PropertyRef Name="MaDuong" />
+      </Principal>
+      <Dependent Role="ConDuongQuan">
+        <PropertyRef Name="MaDuong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DinhMuc_LoaiCay">
+    <End Role="LoaiCay" Type="Self.LoaiCay" Multiplicity="1" />
+    <End Role="DinhMuc" Type="Self.DinhMuc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiCay">
+        <PropertyRef Name="MaLoaiCay" />
+      </Principal>
+      <Dependent Role="DinhMuc">
+        <PropertyRef Name="LoaiCay" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="QuanLyCayXanhModelStoreContainer">
+    <EntitySet Name="BaiViet" EntityType="Self.BaiViet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cay" EntityType="Self.Cay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConDuong" EntityType="Self.ConDuong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConDuongQuan" EntityType="Self.ConDuongQuan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DinhMuc" EntityType="Self.DinhMuc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ID" EntityType="Self.ID" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiBaiViet" EntityType="Self.LoaiBaiViet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiCay" EntityType="Self.LoaiCay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BaiViet_LoaiBaiViet" Association="Self.FK_BaiViet_LoaiBaiViet">
+      <End Role="LoaiBaiViet" EntitySet="LoaiBaiViet" />
+      <End Role="BaiViet" EntitySet="BaiViet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cay_ConDuong1" Association="Self.FK_Cay_ConDuong1">
+      <End Role="ConDuong" EntitySet="ConDuong" />
+      <End Role="Cay" EntitySet="Cay" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cay_LoaiCay" Association="Self.FK_Cay_LoaiCay">
+      <End Role="LoaiCay" EntitySet="LoaiCay" />
+      <End Role="Cay" EntitySet="Cay" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConDuongQuan_ConDuong" Association="Self.FK_ConDuongQuan_ConDuong">
+      <End Role="ConDuong" EntitySet="ConDuong" />
+      <End Role="ConDuongQuan" EntitySet="ConDuongQuan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DinhMuc_LoaiCay" Association="Self.FK_DinhMuc_LoaiCay">
+      <End Role="LoaiCay" EntitySet="LoaiCay" />
+      <End Role="DinhMuc" EntitySet="DinhMuc" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<QLCX.Models.Cay>
+
+@{
+    ViewBag.Title = "CayXem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body>
+    <main class="table">
+        <section class="table__header">
+            <h2>&nbsp;&nbsp;&nbsp;&nbsp;Danh sách cây</h2>
+            <div class="input-group">
+                <input type="search" placeholder="Search Data...">
+                <img src="~/Assets/images/search.png" alt="">
+            </div>
+            <div class="export__file">
+            </div>
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ngày trồng</th>
+                        <th>Tuổi cây lúc trồng</th>
+                        <th>Ngày chặt bỏ</th>
+                        <th>Thuộc con đường</th>
+                        <th>Tên loại cây</th>
+                        <th>@Html.ActionLink("Thêm", "CayThem")</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.NgayTrong)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TuoiCayLucTrong)
+                            </td>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.NgayChatBo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ConDuong.TenDuong)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LoaiCay1.TenLoaiCay)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Cập nhật", "CaySua", new { stt = item.STTCay, md = item.MaDuong }) |
+                                @Html.ActionLink("Xóa", "CayXoa", new { stt = item.STTCay, md = item.MaDuong })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<QLCX.Models.ConDuongQuan>
+
+@{
+    ViewBag.Title = "QuanXem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>QuanXem</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ConDuong.TenDuong)
+        </th>
+        <th>
+           Tên quận
+        </th>
+        <th>
+            @Html.ActionLink("Create New", "Create")
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConDuong.TenDuong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenQuan)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

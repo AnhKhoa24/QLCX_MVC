@@ -1,0 +1,58 @@
+﻿@model IEnumerable<QLCX.Models.Cay>
+
+@{
+    ViewBag.Title = "ConDuongXoa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ConDuongXoa</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayTrong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TuoiCayLucTrong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayChatBo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConDuong.TenDuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiCay1.TenLoaiCay)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayTrong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TuoiCayLucTrong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayChatBo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConDuong.TenDuong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiCay1.TenLoaiCay)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

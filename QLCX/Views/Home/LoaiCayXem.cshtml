@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QLCX.Models.LoaiCay>
+
+@{
+    ViewBag.Title = "LoaiCayXem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2 style="text-align:center">Danh sách các loại cây</h2>
+<table class="table">
+    <tr>
+        <th>
+            Tên loại cây
+        </th>
+        <th>
+            Xuất xứ
+        </th>
+        <th>
+            Hình ảnh
+        </th>
+        <th>
+            @Html.ActionLink("Thêm", "LoaiCayThem")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenLoaiCay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.XuatXu)
+            </td>
+            <td>
+                <img src="~/Photos/@Html.DisplayFor(modelItem => item.HinhAnh)" height="100" />
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "LoaiCaySua", new { id = item.MaLoaiCay }) |
+                @Html.ActionLink("Chi tiết", "LoaiCayChiTiet", new { id = item.MaLoaiCay }) |
+                @Html.ActionLink("Xóa", "LoaiCayXoa", new { id = item.MaLoaiCay })
+            </td>
+        </tr>
+    }
+
+</table>

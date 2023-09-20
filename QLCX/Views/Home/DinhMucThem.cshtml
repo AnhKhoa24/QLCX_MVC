@@ -1,0 +1,59 @@
+﻿@model QLCX.Models.DinhMuc
+
+@{
+    ViewBag.Title = "DinhMucThem";
+    QLCX.Models.QuanLyCayXanhEntities1 db = new QLCX.Models.QuanLyCayXanhEntities1();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2 style="text-align:center">Thêm định mức mới</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>DinhMuc</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TuoiCuaCay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TuoiCuaCay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TuoiCuaCay, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên của cây</label>
+            <div class="col-md-10">
+                <select name="LoaiCay" class="form-control">
+                    @foreach (var item in db.LoaiCays.ToList())
+                    {
+                        <option value="@item.MaLoaiCay">@item.TenLoaiCay</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TienChamSoc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TienChamSoc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TienChamSoc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

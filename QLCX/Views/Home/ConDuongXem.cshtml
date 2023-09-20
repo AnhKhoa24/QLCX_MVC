@@ -1,0 +1,40 @@
+﻿@model IEnumerable<QLCX.Models.ConDuong>
+
+@{
+    ViewBag.Title = "ConDuongXem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center">Con Đường</h2>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên đường
+        </th>
+        <th>
+            Chiều dài
+        </th>
+        <th>
+            @Html.ActionLink("Thêm con đường", "ConDuongThem")
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenDuong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChieuDai)
+        </td>
+        <td>
+            @Html.ActionLink("Cập nhật", "ConDuongSua", new { id=item.MaDuong }) |
+            @Html.ActionLink("Xem thêm", "Details", new { id=item.MaDuong }) |
+            @Html.ActionLink("Xóa bỏ", "ConDuongXoa", new { id=item.MaDuong })
+        </td>
+    </tr>
+}
+
+</table>

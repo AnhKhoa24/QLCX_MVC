@@ -1,0 +1,70 @@
+﻿@model QLCX.Models.Cay
+
+@{
+    ViewBag.Title = "CaySua";
+    QLCX.Models.QuanLyCayXanhEntities1 db = new QLCX.Models.QuanLyCayXanhEntities1();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2 style="text-align:center">Cập nhật Cây</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.STTCay)
+
+        @Html.HiddenFor(model => model.MaDuong)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayTrong, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.NgayTrong, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.NgayTrong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TuoiCayLucTrong, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TuoiCayLucTrong, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TuoiCayLucTrong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayChatBo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.NgayChatBo, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.NgayChatBo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên loại cây</label>
+            <div class="col-md-10">
+                <select name="LoaiCay" class="form-control">
+                    @foreach (var item in db.LoaiCays.ToList())
+                    {
+                        <option value="@item.MaLoaiCay" @Html.Raw(item.MaLoaiCay == Model.LoaiCay ? "selected" : "")>@item.TenLoaiCay</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

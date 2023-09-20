@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c9bee5925297452a8f3a195948da457d" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.Cay" Width="1.5" PointX="3.75" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.ConDuong" Width="1.5" PointX="6.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.ConDuongQuan" Width="1.5" PointX="6.875" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.DinhMuc" Width="1.5" PointX="0.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.ID" Width="1.5" PointX="10.125" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.LoaiCay" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.sysdiagram" Width="1.5" PointX="10.25" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="QuanLyCayXanhModel.FK_Cay_ConDuong" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyCayXanhModel.FK_Cay_LoaiCay" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyCayXanhModel.FK_ConDuongQuan_ConDuong" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyCayXanhModel.FK_DinhMuc_LoaiCay" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.BaiViet" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="QuanLyCayXanhModel.LoaiBaiViet" Width="1.5" PointX="0.75" PointY="7.75" />
+        <AssociationConnector Association="QuanLyCayXanhModel.FK_BaiViet_LoaiBaiViet" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

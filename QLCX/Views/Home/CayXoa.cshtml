@@ -1,0 +1,67 @@
+﻿@model QLCX.Models.Cay
+
+@{
+    ViewBag.Title = "CayXoa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2 style="text-align:center">Xóa bỏ cây</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayTrong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayTrong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TuoiCayLucTrong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TuoiCayLucTrong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayChatBo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayChatBo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConDuong.TenDuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConDuong.TenDuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoaiCay1.TenLoaiCay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiCay1.TenLoaiCay)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="stt" value=" @Html.DisplayFor(model => model.STTCay)">
+        <input type="hidden" name="md" value=" @Html.DisplayFor(model => model.MaDuong)">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
